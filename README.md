@@ -1,321 +1,309 @@
-[![Chat](https://img.shields.io/matrix/element-web:matrix.org?logo=matrix)](https://matrix.to/#/#element-web:matrix.org)
-![Tests](https://github.com/vector-im/element-web/actions/workflows/tests.yaml/badge.svg)
-![Static Analysis](https://github.com/vector-im/element-web/actions/workflows/static_analysis.yaml/badge.svg)
-[![Localazy](https://img.shields.io/endpoint?url=https%3A%2F%2Fconnect.localazy.com%2Fstatus%2Felement-web%2Fdata%3Fcontent%3Dall%26title%3Dlocalazy%26logo%3Dtrue)](https://localazy.com/p/element-web)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=element-web&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=element-web)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=element-web&metric=coverage)](https://sonarcloud.io/summary/new_code?id=element-web)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=element-web&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=element-web)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=element-web&metric=bugs)](https://sonarcloud.io/summary/new_code?id=element-web)
-
-# Element
-
-Element (formerly known as Vector and Riot) is a Matrix web client built using the [Matrix
-React SDK](https://github.com/matrix-org/matrix-react-sdk).
-
-# Supported Environments
-
-Element has several tiers of support for different environments:
-
--   Supported
-    -   Definition: Issues **actively triaged**, regressions **block** the release
-    -   Last 2 major versions of Chrome, Firefox, and Edge on desktop OSes
-    -   Last 2 versions of Safari
-    -   Latest release of official Element Desktop app on desktop OSes
-    -   Desktop OSes means macOS, Windows, and Linux versions for desktop devices
-        that are actively supported by the OS vendor and receive security updates
--   Experimental
-    -   Definition: Issues **accepted**, regressions **do not block** the release
-    -   Element as an installed PWA via current stable version of Chrome
-    -   Mobile web for current stable version of Chrome, Firefox, and Safari on Android, iOS, and iPadOS
--   Not supported
-    -   Definition: Issues only affecting unsupported environments are **closed**
-    -   Everything else
-
-For accessing Element on an Android or iOS device, we currently recommend the
-native apps [element-android](https://github.com/vector-im/element-android)
-and [element-ios](https://github.com/vector-im/element-ios).
-
-# Getting Started
-
-The easiest way to test Element is to just use the hosted copy at <https://app.element.io>.
-The `develop` branch is continuously deployed to <https://develop.element.io>
-for those who like living dangerously.
-
-To host your own instance of Element see [Installing Element Web](docs/install.md).
-
-To install Element as a desktop application, see [Running as a desktop app](#running-as-a-desktop-app) below.
-
-# Important Security Notes
-
-## Separate domains
-
-We do not recommend running Element from the same domain name as your Matrix
-homeserver. The reason is the risk of XSS (cross-site-scripting)
-vulnerabilities that could occur if someone caused Element to load and render
-malicious user generated content from a Matrix API which then had trusted
-access to Element (or other apps) due to sharing the same domain.
-
-We have put some coarse mitigations into place to try to protect against this
-situation, but it's still not good practice to do it in the first place. See
-<https://github.com/vector-im/element-web/issues/1977> for more details.
-
-## Configuration best practices
-
-Unless you have special requirements, you will want to add the following to
-your web server configuration when hosting Element Web:
-
--   The `X-Frame-Options: SAMEORIGIN` header, to prevent Element Web from being
-    framed and protect from [clickjacking][owasp-clickjacking].
--   The `frame-ancestors 'self'` directive to your `Content-Security-Policy`
-    header, as the modern replacement for `X-Frame-Options` (though both should be
-    included since not all browsers support it yet, see
-    [this][owasp-clickjacking-csp]).
--   The `X-Content-Type-Options: nosniff` header, to [disable MIME
-    sniffing][mime-sniffing].
--   The `X-XSS-Protection: 1; mode=block;` header, for basic XSS protection in
-    legacy browsers.
-
-[mime-sniffing]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#mime_sniffing
-[owasp-clickjacking-csp]: https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html#content-security-policy-frame-ancestors-examples
-[owasp-clickjacking]: https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html
-
-If you are using nginx, this would look something like the following:
-
-```
-add_header X-Frame-Options SAMEORIGIN;
+<div class="Box-sc-g0xbh4-0 bJMeLZ js-snippet-clipboard-copy-unpositioned" data-hpc="true"><article class="markdown-body entry-content container-lg" itemprop="text"><p dir="auto"><a href="https://matrix.to/#/#element-web:matrix.org" rel="nofollow"><img src="https://camo.githubusercontent.com/41c896b177870329b98a3e6bfe03998774d98f1ee10e1c7b4976a9982b9d6ee4/68747470733a2f2f696d672e736869656c64732e696f2f6d61747269782f656c656d656e742d7765623a6d61747269782e6f72673f6c6f676f3d6d6174726978" alt="聊天" data-canonical-src="https://img.shields.io/matrix/element-web:matrix.org?logo=matrix" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/element-hq/element-web/actions/workflows/tests.yaml/badge.svg"><img src="https://github.com/element-hq/element-web/actions/workflows/tests.yaml/badge.svg" alt="测试" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/element-hq/element-web/actions/workflows/static_analysis.yaml/badge.svg"><img src="https://github.com/element-hq/element-web/actions/workflows/static_analysis.yaml/badge.svg" alt="静态分析" style="max-width: 100%;"></a>
+<a href="https://localazy.com/p/element-web" rel="nofollow"><img src="https://camo.githubusercontent.com/5c011f9f5166245cfb7a083c9960dae95a491affaf24aabbd885146b50ffae87/68747470733a2f2f696d672e736869656c64732e696f2f656e64706f696e743f75726c3d6874747073253341253246253246636f6e6e6563742e6c6f63616c617a792e636f6d253246737461747573253246656c656d656e742d77656225324664617461253346636f6e74656e74253344616c6c2532367469746c652533446c6f63616c617a792532366c6f676f25334474727565" alt="本地化" data-canonical-src="https://img.shields.io/endpoint?url=https%3A%2F%2Fconnect.localazy.com%2Fstatus%2Felement-web%2Fdata%3Fcontent%3Dall%26title%3Dlocalazy%26logo%3Dtrue" style="max-width: 100%;"></a>
+<a href="https://sonarcloud.io/summary/new_code?id=element-web" rel="nofollow"><img src="https://camo.githubusercontent.com/39937d07f3dcc8043eb83f9eea5efd76c237ee19e1f6ea978c747f88ee679b35/68747470733a2f2f736f6e6172636c6f75642e696f2f6170692f70726f6a6563745f6261646765732f6d6561737572653f70726f6a6563743d656c656d656e742d776562266d65747269633d616c6572745f737461747573" alt="质量门状态" data-canonical-src="https://sonarcloud.io/api/project_badges/measure?project=element-web&amp;metric=alert_status" style="max-width: 100%;"></a>
+<a href="https://sonarcloud.io/summary/new_code?id=element-web" rel="nofollow"><img src="https://camo.githubusercontent.com/b1314330bdabe311f2df94ca6826aeeb38eee6384d5902ca0ec76b6caf8b5cd1/68747470733a2f2f736f6e6172636c6f75642e696f2f6170692f70726f6a6563745f6261646765732f6d6561737572653f70726f6a6563743d656c656d656e742d776562266d65747269633d636f766572616765" alt="覆盖范围" data-canonical-src="https://sonarcloud.io/api/project_badges/measure?project=element-web&amp;metric=coverage" style="max-width: 100%;"></a>
+<a href="https://sonarcloud.io/summary/new_code?id=element-web" rel="nofollow"><img src="https://camo.githubusercontent.com/bdf8be6e2ddeaa10c291126efb879379d6e8c03d78297bf931e7ec7082cbc09a/68747470733a2f2f736f6e6172636c6f75642e696f2f6170692f70726f6a6563745f6261646765732f6d6561737572653f70726f6a6563743d656c656d656e742d776562266d65747269633d76756c6e65726162696c6974696573" alt="漏洞" data-canonical-src="https://sonarcloud.io/api/project_badges/measure?project=element-web&amp;metric=vulnerabilities" style="max-width: 100%;"></a>
+<a href="https://sonarcloud.io/summary/new_code?id=element-web" rel="nofollow"><img src="https://camo.githubusercontent.com/90e5782345520dd09467ecb96c9acb282cf2bde76febc6f26aa19b6a2eb42973/68747470733a2f2f736f6e6172636c6f75642e696f2f6170692f70726f6a6563745f6261646765732f6d6561737572653f70726f6a6563743d656c656d656e742d776562266d65747269633d62756773" alt="漏洞" data-canonical-src="https://sonarcloud.io/api/project_badges/measure?project=element-web&amp;metric=bugs" style="max-width: 100%;"></a></p>
+<div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">元素</font></font></h1><a id="user-content-element" class="anchor" aria-label="永久链接：元素" href="#element"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Element（以前称为 Vector 和 Riot）是使用</font></font><a href="https://github.com/matrix-org/matrix-react-sdk"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Matrix React SDK</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">构建的 Matrix 网络客户端。</font></font></p>
+<div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">支持的环境</font></font></h1><a id="user-content-supported-environments" class="anchor" aria-label="永久链接：支持的环境" href="#supported-environments"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Element 对不同环境提供多种层次的支持：</font></font></p>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">支持的
+</font></font><ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">定义：</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">积极分类</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">问题，回归</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">阻碍</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">发布</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">桌面操作系统上 Chrome、Firefox 和 Edge 的最新两个主要版本</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Safari 的最新两个版本</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">桌面操作系统上最新发布的官方 Element Desktop 应用程序</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">桌面操作系统是指操作系统供应商积极支持并接收安全更新的桌面设备的 macOS、Windows 和 Linux 版本</font></font></li>
+</ul>
+</li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">实验
+</font></font><ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">定义：问题</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">已接受</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，回归</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">不会阻碍</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">发布</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">通过当前稳定版 Chrome 安装 Element 作为 PWA</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">适用于 Android、iOS 和 iPadOS 上当前稳定版本的 Chrome、Firefox 和 Safari 的移动网络</font></font></li>
+</ul>
+</li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">不支持
+</font></font><ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">定义：仅影响不受支持环境的问题会被</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">关闭</font></font></strong></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">其他一切</font></font></li>
+</ul>
+</li>
+</ul>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">为了在 Android 或 iOS 设备上访问 Element，我们目前推荐原生应用程序</font></font><a href="https://github.com/element-hq/element-android"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">element-android</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+和</font></font><a href="https://github.com/element-hq/element-ios"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">element-ios</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">入门</font></font></h1><a id="user-content-getting-started" class="anchor" aria-label="永久链接：入门" href="#getting-started"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">测试 Element 最简单的方法是使用</font></font><a href="https://app.element.io" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">https://app.element.io</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">上托管的副本。
+对于喜欢冒险的人来说，</font><font style="vertical-align: inherit;">该</font></font><code>develop</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">分支会持续部署到</font></font><a href="https://develop.element.io" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">https://develop.element.io 。</font></font></a><font style="vertical-align: inherit;"></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">要托管您自己的 Element 实例，请参阅</font></font><a href="/element-hq/element-web/blob/develop/docs/install.md"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">安装 Element Web</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">要将 Element 安装为桌面应用程序，请参阅下面的</font></font><a href="#running-as-a-desktop-app"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">作为桌面应用程序运行</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">重要安全说明</font></font></h1><a id="user-content-important-security-notes" class="anchor" aria-label="永久链接：重要安全说明" href="#important-security-notes"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">独立域</font></font></h2><a id="user-content-separate-domains" class="anchor" aria-label="永久链接：独立域名" href="#separate-domains"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我们不建议使用与 Matrix 主服务器相同的域名运行 Element。原因是，如果有人导致 Element 从 Matrix API 加载和呈现恶意用户生成内容，则可能会出现 XSS（跨站点脚本）漏洞风险，而 Matrix API 由于共享同一域而具有对 Element（或其他应用）的可信访问权限。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我们已经采取了一些粗略的缓解措施来尝试防止这种情况，但首先这样做仍然不是好做法。
+</font><font style="vertical-align: inherit;">有关更多详细信息，请参阅</font></font><a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="171545836" data-permission-text="Title is private" data-url="https://github.com/element-hq/element-web/issues/1977" data-hovercard-type="issue" data-hovercard-url="/element-hq/element-web/issues/1977/hovercard" href="https://github.com/element-hq/element-web/issues/1977"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">#1977 。</font></font></a><font style="vertical-align: inherit;"></font></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">配置最佳实践</font></font></h2><a id="user-content-configuration-best-practices" class="anchor" aria-label="永久链接：配置最佳实践" href="#configuration-best-practices"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">除非您有特殊要求，否则在托管 Element Web 时，您需要将以下内容添加到您的 Web 服务器配置中：</font></font></p>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">标</font></font><code>X-Frame-Options: SAMEORIGIN</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">头，防止 Element Web 被框架并防止</font></font><a href="https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">点击劫持</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></li>
+<li><font style="vertical-align: inherit;"></font><code>frame-ancestors 'self'</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">标题中的指令</font><font style="vertical-align: inherit;">，</font></font><code>Content-Security-Policy</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+作为的现代替代品</font></font><code>X-Frame-Options</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">（尽管两者都应该包括在内，因为并非所有浏览器都支持它，请参阅
+</font></font><a href="https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html#content-security-policy-frame-ancestors-examples" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">此处</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">）。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">标</font></font><code>X-Content-Type-Options: nosniff</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">头，</font></font><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#mime_sniffing" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">禁用 MIME 嗅探</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">标</font></font><code>X-XSS-Protection: 1; mode=block;</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">头，用于旧版浏览器中的基本 XSS 保护。</font></font></li>
+</ul>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果你正在使用 nginx，它看起来将类似于以下内容：</font></font></p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>add_header X-Frame-Options SAMEORIGIN;
 add_header X-Content-Type-Options nosniff;
 add_header X-XSS-Protection "1; mode=block";
 add_header Content-Security-Policy "frame-ancestors 'self'";
-```
-
-For Apache, the configuration looks like:
-
-```
-Header set X-Frame-Options SAMEORIGIN
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="add_header X-Frame-Options SAMEORIGIN;
+add_header X-Content-Type-Options nosniff;
+add_header X-XSS-Protection &quot;1; mode=block&quot;;
+add_header Content-Security-Policy &quot;frame-ancestors 'self'&quot;;" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">对于 Apache，配置如下：</font></font></p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>Header set X-Frame-Options SAMEORIGIN
 Header set X-Content-Type-Options nosniff
 Header set X-XSS-Protection "1; mode=block"
 Header set Content-Security-Policy "frame-ancestors 'self'"
-```
-
-Note: In case you are already setting a `Content-Security-Policy` header
-elsewhere, you should modify it to include the `frame-ancestors` directive
-instead of adding that last line.
-
-# Building From Source
-
-Element is a modular webapp built with modern ES6 and uses a Node.js build system.
-Ensure you have the latest LTS version of Node.js installed.
-
-Using `yarn` instead of `npm` is recommended. Please see the Yarn [install
-guide](https://classic.yarnpkg.com/en/docs/install) if you do not have it already.
-
-1. Install or update `node.js` so that your `node` is at least the current recommended LTS.
-1. Install `yarn` if not present already.
-1. Clone the repo: `git clone https://github.com/vector-im/element-web.git`.
-1. Switch to the element-web directory: `cd element-web`.
-1. Install the prerequisites: `yarn install`.
-    - If you're using the `develop` branch, then it is recommended to set up a
-      proper development environment (see [Setting up a dev
-      environment](#setting-up-a-dev-environment) below). Alternatively, you
-      can use <https://develop.element.io> - the continuous integration release of
-      the develop branch.
-1. Configure the app by copying `config.sample.json` to `config.json` and
-   modifying it. See the [configuration docs](docs/config.md) for details.
-1. `yarn dist` to build a tarball to deploy. Untaring this file will give
-   a version-specific directory containing all the files that need to go on your
-   web server.
-
-Note that `yarn dist` is not supported on Windows, so Windows users can run `yarn build`,
-which will build all the necessary files into the `webapp` directory. The version of Element
-will not appear in Settings without using the dist script. You can then mount the
-`webapp` directory on your web server to actually serve up the app, which is
-entirely static content.
-
-# Running as a Desktop app
-
-Element can also be run as a desktop app, wrapped in Electron. You can download a
-pre-built version from <https://element.io/get-started> or, if you prefer,
-build it yourself.
-
-To build it yourself, follow the instructions at <https://github.com/vector-im/element-desktop>.
-
-Many thanks to @aviraldg for the initial work on the Electron integration.
-
-The [configuration docs](docs/config.md#desktop-app-configuration) show how to override the desktop app's default settings if desired.
-
-# config.json
-
-Element supports a variety of settings to configure default servers, behaviour, themes, etc.
-See the [configuration docs](docs/config.md) for more details.
-
-# Labs Features
-
-Some features of Element may be enabled by flags in the `Labs` section of the settings.
-Some of these features are described in [labs.md](https://github.com/vector-im/element-web/blob/develop/docs/labs.md).
-
-# Caching requirements
-
-Element requires the following URLs not to be cached, when/if you are serving Element from your own webserver:
-
-```
-/config.*.json
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="Header set X-Frame-Options SAMEORIGIN
+Header set X-Content-Type-Options nosniff
+Header set X-XSS-Protection &quot;1; mode=block&quot;
+Header set Content-Security-Policy &quot;frame-ancestors 'self'&quot;" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">注意：如果您已经</font></font><code>Content-Security-Policy</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在其他地方设置了标题，则应该修改它以包含</font></font><code>frame-ancestors</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">指令，而不是添加最后一行。</font></font></p>
+<div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">从源代码构建</font></font></h1><a id="user-content-building-from-source" class="anchor" aria-label="永久链接：从源代码构建" href="#building-from-source"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Element 是一个使用现代 ES6 构建的模块化 Web 应用，并使用 Node.js 构建系统。请确保安装了最新的 LTS 版本的 Node.js。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">建议使用</font></font><code>yarn</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">而不是。</font><font style="vertical-align: inherit;">如果您还没有</font></font><code>npm</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Yarn</font></font><a href="https://classic.yarnpkg.com/en/docs/install" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">安装指南，请参阅它。</font></font></a><font style="vertical-align: inherit;"></font></p>
+<ol dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">安装或更新</font></font><code>node.js</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，以便您的</font></font><code>node</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">至少是当前推荐的 LTS。</font></font></li>
+<li><font style="vertical-align: inherit;"></font><code>yarn</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果尚不存在则</font><font style="vertical-align: inherit;">安装。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">克隆 repo </font></font><code>git clone https://github.com/element-hq/element-web.git</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">切换到 element-web 目录：</font></font><code>cd element-web</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">安装先决条件：</font></font><code>yarn install</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。
+</font></font><ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您正在使用</font></font><code>develop</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">分支，则建议设置适当的开发环境（请参阅下面的</font></font><a href="#setting-up-a-dev-environment"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">设置开发环境</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">）。或者，您可以使用</font></font><a href="https://develop.element.io" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">https://develop.element.io</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> - 开发分支的持续集成版本。</font></font></li>
+</ul>
+</li>
+<li><font style="vertical-align: inherit;"></font><code>config.sample.json</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">通过复制</font></font><code>config.json</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">和修改来</font><font style="vertical-align: inherit;">配置应用程序。有关详细信息，请参阅</font></font><a href="/element-hq/element-web/blob/develop/docs/config.md"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">配置文档</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></li>
+<li><code>yarn dist</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">构建要部署的 tarball。解压此文件将得到一个特定于版本的目录，其中包含需要放在 Web 服务器上的所有文件。</font></font></li>
+</ol>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">请注意，</font></font><code>yarn dist</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Windows 不支持，因此 Windows 用户可以运行</font></font><code>yarn build</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，它会将所有必要的文件构建到</font></font><code>webapp</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">目录中。如果不使用 dist 脚本，Element 的版本将不会出现在“设置”中。然后，您可以在 Web 服务器上安装目录
+</font></font><code>webapp</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">以实际提供应用程序，该应用程序完全是静态内容。</font></font></p>
+<div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">作为桌面应用程序运行</font></font></h1><a id="user-content-running-as-a-desktop-app" class="anchor" aria-label="永久链接：作为桌面应用程序运行" href="#running-as-a-desktop-app"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"></font><a href="https://element.io/get-started" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Element 还可以作为桌面应用运行，并封装在 Electron 中。您可以从https://element.io/get-started</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">下载预构建版本，</font><font style="vertical-align: inherit;">或者，如果您愿意，也可以自行构建。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">要自行构建，请按照</font></font><a href="https://github.com/element-hq/element-desktop"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">https://github.com/element-hq/element-desktop</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">上的说明进行操作。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">非常感谢@aviraldg 对 Electron 集成所做的初步工作。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"></font><a href="/element-hq/element-web/blob/develop/docs/config.md#desktop-app-configuration"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">配置文档</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">显示</font><font style="vertical-align: inherit;">了如何根据需要覆盖桌面应用程序的默认设置。</font></font></p>
+<div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">配置.json</font></font></h1><a id="user-content-configjson" class="anchor" aria-label="永久链接：config.json" href="#configjson"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Element 支持多种设置来配置默认服务器、行为、主题等。</font><font style="vertical-align: inherit;">有关更多详细信息，请参阅</font></font><a href="/element-hq/element-web/blob/develop/docs/config.md"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">配置文档。</font></font></a><font style="vertical-align: inherit;"></font></p>
+<div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">实验室功能</font></font></h1><a id="user-content-labs-features" class="anchor" aria-label="固定链接：实验室功能" href="#labs-features"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"></font><code>Labs</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Element 的某些功能可以通过设置部分</font><font style="vertical-align: inherit;">中的标志启用。其中一些功能在</font></font><a href="https://github.com/element-hq/element-web/blob/develop/docs/labs.md"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">labs.md</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">中进行了描述。</font></font></p>
+<div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">缓存要求</font></font></h1><a id="user-content-caching-requirements" class="anchor" aria-label="永久链接：缓存要求" href="#caching-requirements"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">当您从自己的网络服务器提供 Element 时，Element 要求以下 URL 不被缓存：</font></font></p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>/config.*.json
 /i18n
 /home
 /sites
 /index.html
-```
-
-We also recommend that you force browsers to re-validate any cached copy of Element on page load by configuring your
-webserver to return `Cache-Control: no-cache` for `/`. This ensures the browser will fetch a new version of Element on
-the next page load after it's been deployed. Note that this is already configured for you in the nginx config of our
-Dockerfile.
-
-# Development
-
-Before attempting to develop on Element you **must** read the [developer guide
-for `matrix-react-sdk`](https://github.com/matrix-org/matrix-react-sdk#developer-guide), which
-also defines the design, architecture and style for Element too.
-
-Read the [Choosing an issue](docs/choosing-an-issue.md) page for some guidance
-about where to start. Before starting work on a feature, it's best to ensure
-your plan aligns well with our vision for Element. Please chat with the team in
-[#element-dev:matrix.org](https://matrix.to/#/#element-dev:matrix.org) before
-you start so we can ensure it's something we'd be willing to merge.
-
-You should also familiarise yourself with the ["Here be Dragons" guide
-](https://docs.google.com/document/d/12jYzvkidrp1h7liEuLIe6BMdU0NUjndUYI971O06ooM)
-to the tame & not-so-tame dragons (gotchas) which exist in the codebase.
-
-The idea of Element is to be a relatively lightweight "skin" of customisations on
-top of the underlying `matrix-react-sdk`. `matrix-react-sdk` provides both the
-higher and lower level React components useful for building Matrix communication
-apps using React.
-
-Please note that Element is intended to run correctly without access to the public
-internet. So please don't depend on resources (JS libs, CSS, images, fonts)
-hosted by external CDNs or servers but instead please package all dependencies
-into Element itself.
-
-CSS hot-reload is available as an opt-in development feature. You can enable it
-by defining a `CSS_HOT_RELOAD` environment variable, in a `.env` file in the root
-of the repository. See `.env.example` for documentation and an example.
-
-# Setting up a dev environment
-
-Much of the functionality in Element is actually in the `matrix-react-sdk` and
-`matrix-js-sdk` modules. It is possible to set these up in a way that makes it
-easy to track the `develop` branches in git and to make local changes without
-having to manually rebuild each time.
-
-First clone and build `matrix-js-sdk`:
-
-```bash
-git clone https://github.com/matrix-org/matrix-js-sdk.git
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="/config.*.json
+/i18n
+/home
+/sites
+/index.html" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我们还建议您强制浏览器在页面加载时重新验证 Element 的任何缓存副本，方法是将您的 Web 服务器配置为返回</font></font><code>Cache-Control: no-cache</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font><code>/</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">这可确保浏览器在部署后下次页面加载时获取 Element 的新版本。请注意，这已在我们的 Dockerfile 的 nginx 配置中为您配置。</font></font></p>
+<div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">发展</font></font></h1><a id="user-content-development" class="anchor" aria-label="固定链接：开发" href="#development"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在尝试在 Element 上进行开发之前，您</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">必须</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">阅读的</font></font><a href="https://github.com/matrix-org/matrix-react-sdk#developer-guide"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">开发人员指南</font></font><code>matrix-react-sdk</code></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，其中也定义了 Element 的设计、架构和样式。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">阅读</font></font><a href="/element-hq/element-web/blob/develop/docs/choosing-an-issue.md"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">选择问题</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">页面，了解从哪里开始的一些指导。在开始开发功能之前，最好确保您的计划与我们对 Element 的愿景相符。开始之前，请在
+</font></font><a href="https://matrix.to/#/#element-dev:matrix.org" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">#element-dev:matrix.org</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">中与团队聊天，这样我们才能确保这是我们愿意合并的内容。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">您还应该熟悉</font></font><a href="https://docs.google.com/document/d/12jYzvkidrp1h7liEuLIe6BMdU0NUjndUYI971O06ooM" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">“Here be Dragons”指南，
+</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+其中介绍了代码库中存在的驯服的龙和不那么驯服的龙（陷阱）。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Element 的理念是在底层之上进行相对轻量级的定制“皮肤” </font></font><code>matrix-react-sdk</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font><code>matrix-react-sdk</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">提供高级和低级 React 组件，可用于使用 React 构建 Matrix 通信应用程序。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">请注意，Element 旨在无需访问公共互联网即可正常运行。因此，请不要依赖外部 CDN 或服务器托管的资源（JS 库、CSS、图像、字体），而是将所有依赖项打包到 Element 本身中。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">CSS 热重载可作为可选开发功能使用。您可以通过在</font><font style="vertical-align: inherit;">存储库根目录中的文件</font></font><code>CSS_HOT_RELOAD</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">中定义环境变量来启用它。请参阅</font><font style="vertical-align: inherit;">文档和示例。</font></font><code>.env</code><font style="vertical-align: inherit;"></font><code>.env.example</code><font style="vertical-align: inherit;"></font></p>
+<div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">设置开发环境</font></font></h1><a id="user-content-setting-up-a-dev-environment" class="anchor" aria-label="永久链接：设置开发环境" href="#setting-up-a-dev-environment"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Element 中的许多功能实际上都位于</font></font><code>matrix-react-sdk</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">和
+</font></font><code>matrix-js-sdk</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">模块中。可以以一种方式设置它们，以便于跟踪</font></font><code>develop</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">git 中的分支并进行本地更改，而无需每次手动重建。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">第一次克隆并构建</font></font><code>matrix-js-sdk</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：</font></font></p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto"><pre>git clone https://github.com/matrix-org/matrix-js-sdk.git
+<span class="pl-c1">pushd</span> matrix-js-sdk
+yarn link
+yarn install
+<span class="pl-c1">popd</span></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="git clone https://github.com/matrix-org/matrix-js-sdk.git
 pushd matrix-js-sdk
 yarn link
 yarn install
-popd
-```
-
-Then similarly with `matrix-react-sdk`:
-
-```bash
-git clone https://github.com/matrix-org/matrix-react-sdk.git
+popd" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">然后类似地</font></font><code>matrix-react-sdk</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：</font></font></p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto"><pre>git clone https://github.com/matrix-org/matrix-react-sdk.git
+<span class="pl-c1">pushd</span> matrix-react-sdk
+yarn link
+yarn link matrix-js-sdk
+yarn install
+<span class="pl-c1">popd</span></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="git clone https://github.com/matrix-org/matrix-react-sdk.git
 pushd matrix-react-sdk
 yarn link
 yarn link matrix-js-sdk
 yarn install
-popd
-```
-
-Clone the repo and switch to the `element-web` directory:
-
-```bash
-git clone https://github.com/vector-im/element-web.git
-cd element-web
-```
-
-Configure the app by copying `config.sample.json` to `config.json` and
-modifying it. See the [configuration docs](docs/config.md) for details.
-
-Finally, build and start Element itself:
-
-```bash
-yarn link matrix-js-sdk
+popd" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">克隆 repo 并切换到</font></font><code>element-web</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">目录：</font></font></p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto"><pre>git clone https://github.com/element-hq/element-web.git
+<span class="pl-c1">cd</span> element-web</pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="git clone https://github.com/element-hq/element-web.git
+cd element-web" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<p dir="auto"><font style="vertical-align: inherit;"></font><code>config.sample.json</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">通过复制</font></font><code>config.json</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">和修改来</font><font style="vertical-align: inherit;">配置应用程序。有关详细信息，请参阅</font></font><a href="/element-hq/element-web/blob/develop/docs/config.md"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">配置文档</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">最后，构建并启动 Element 本身：</font></font></p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto"><pre>yarn link matrix-js-sdk
 yarn link matrix-react-sdk
 yarn install
-yarn start
-```
-
-Wait a few seconds for the initial build to finish; you should see something like:
-
-```
-[element-js] <s> [webpack.Progress] 100%
+yarn start</pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="yarn link matrix-js-sdk
+yarn link matrix-react-sdk
+yarn install
+yarn start" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">等待几秒钟以完成初始构建；您应该看到类似以下内容：</font></font></p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>[element-js] &lt;s&gt; [webpack.Progress] 100%
 [element-js]
 [element-js] ℹ ｢wdm｣:    1840 modules
 [element-js] ℹ ｢wdm｣: Compiled successfully.
-```
-
-Remember, the command will not terminate since it runs the web server
-and rebuilds source files when they change. This development server also
-disables caching, so do NOT use it in production.
-
-Open <http://127.0.0.1:8080/> in your browser to see your newly built Element.
-
-**Note**: The build script uses inotify by default on Linux to monitor directories
-for changes. If the inotify limits are too low your build will fail silently or with
-`Error: EMFILE: too many open files`. To avoid these issues, we recommend a watch limit
-of at least `128M` and instance limit around `512`.
-
-You may be interested in issues [#15750](https://github.com/vector-im/element-web/issues/15750) and
-[#15774](https://github.com/vector-im/element-web/issues/15774) for further details.
-
-To set a new inotify watch and instance limit, execute:
-
-```
-sudo sysctl fs.inotify.max_user_watches=131072
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="[element-js] <s> [webpack.Progress] 100%
+[element-js]
+[element-js] ℹ ｢wdm｣:    1840 modules
+[element-js] ℹ ｢wdm｣: Compiled successfully." tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">请记住，该命令不会终止，因为它会运行 Web 服务器并在源文件发生更改时重建它们。此开发服务器还会禁用缓存，因此请勿在生产中使用它。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在浏览器中</font><font style="vertical-align: inherit;">打开</font></font><a href="http://127.0.0.1:8080/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">http://127.0.0.1:8080/即可查看您新构建的元素。</font></font></a><font style="vertical-align: inherit;"></font></p>
+<p dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">注意</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：构建脚本在 Linux 上默认使用 inotify 来监控目录的更改。如果 inotify 限制太低，您的构建将失败，且不会发出任何提示
+</font></font><code>Error: EMFILE: too many open files</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。为避免这些问题，我们建议监控限制至少为</font></font><code>128M</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，实例限制约为</font></font><code>512</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"></font><a href="https://github.com/element-hq/element-web/issues/15750" data-hovercard-type="issue" data-hovercard-url="/element-hq/element-web/issues/15750/hovercard"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">您可能对问题#15750</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">和
+</font></font><a href="https://github.com/element-hq/element-web/issues/15774" data-hovercard-type="issue" data-hovercard-url="/element-hq/element-web/issues/15774/hovercard"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">#15774</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">感兴趣</font><font style="vertical-align: inherit;">以了解更多详细信息。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">要设置新的 inotify 监视和实例限制，请执行：</font></font></p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>sudo sysctl fs.inotify.max_user_watches=131072
 sudo sysctl fs.inotify.max_user_instances=512
 sudo sysctl -p
-```
-
-If you wish, you can make the new limits permanent, by executing:
-
-```
-echo fs.inotify.max_user_watches=131072 | sudo tee -a /etc/sysctl.conf
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="sudo sysctl fs.inotify.max_user_watches=131072
+sudo sysctl fs.inotify.max_user_instances=512
+sudo sysctl -p" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果愿意，您可以通过执行以下命令使新的限制永久生效：</font></font></p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>echo fs.inotify.max_user_watches=131072 | sudo tee -a /etc/sysctl.conf
 echo fs.inotify.max_user_instances=512 | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
-```
-
----
-
-When you make changes to `matrix-react-sdk` or `matrix-js-sdk` they should be
-automatically picked up by webpack and built.
-
-If any of these steps error with, `file table overflow`, you are probably on a mac
-which has a very low limit on max open files. Run `ulimit -Sn 1024` and try again.
-You'll need to do this in each new terminal you open before building Element.
-
-## Running the tests
-
-There are a number of application-level tests in the `tests` directory; these
-are designed to run with Jest and JSDOM. To run them
-
-```
-yarn test
-```
-
-### End-to-End tests
-
-See [matrix-react-sdk](https://github.com/matrix-org/matrix-react-sdk/#end-to-end-tests) for how to run the end-to-end tests.
-
-# Translations
-
-To add a new translation, head to the [translating doc](docs/translating.md).
-
-For a developer guide, see the [translating dev doc](docs/translating-dev.md).
-
-# Triaging issues
-
-Issues are triaged by community members and the Web App Team, following the [triage process](https://github.com/vector-im/element-meta/wiki/Triage-process).
-
-We use [issue labels](https://github.com/vector-im/element-meta/wiki/Issue-labelling) to sort all incoming issues.
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="echo fs.inotify.max_user_watches=131072 | sudo tee -a /etc/sysctl.conf
+echo fs.inotify.max_user_instances=512 | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<hr>
+<p dir="auto"><font style="vertical-align: inherit;"></font><code>matrix-react-sdk</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">当您对或</font><font style="vertical-align: inherit;">进行更改时，</font></font><code>matrix-js-sdk</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">它们应该被 webpack 自动获取并构建。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果上述任何步骤出现错误，</font></font><code>file table overflow</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">则可能是您使用的 Mac 的最大打开文件数限制非常低。运行</font></font><code>ulimit -Sn 1024</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">并重试。在构建 Element 之前，您需要在打开的每个新终端中执行此操作。</font></font></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">运行测试</font></font></h2><a id="user-content-running-the-tests" class="anchor" aria-label="永久链接：运行测试" href="#running-the-tests"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">目录中有许多应用程序级测试</font></font><code>tests</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">；这些测试旨在与 Jest 和 JSDOM 一起运行。要运行它们</font></font></p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>yarn test
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="yarn test" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">端到端测试</font></font></h3><a id="user-content-end-to-end-tests" class="anchor" aria-label="永久链接：端到端测试" href="#end-to-end-tests"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">请参阅</font></font><a href="https://github.com/matrix-org/matrix-react-sdk/#end-to-end-tests"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">matrix-react-sdk</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">了解如何运行端到端测试。</font></font></p>
+<div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">翻译</font></font></h1><a id="user-content-translations" class="anchor" aria-label="固定链接：翻译" href="#translations"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">要添加新的翻译，请前往</font></font><a href="/element-hq/element-web/blob/develop/docs/translating.md"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">翻译文档</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如需查看开发者指南，请参阅</font></font><a href="/element-hq/element-web/blob/develop/docs/translating-dev.md"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">翻译开发文档</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">分类问题</font></font></h1><a id="user-content-triaging-issues" class="anchor" aria-label="永久链接：分类问题" href="#triaging-issues"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">问题由社区成员和 Web 应用程序团队按照</font></font><a href="https://github.com/element-hq/element-meta/wiki/Triage-process"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">分类流程</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">进行分类。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我们使用</font></font><a href="https://github.com/element-hq/element-meta/wiki/Issue-labelling"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">问题标签</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">对所有传入的问题进行分类。</font></font></p>
+</article></div>
